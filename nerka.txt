@@ -1,0 +1,83 @@
+CEL_KONSULTACJI diagnoza
+
+!WU_WL
+
+!POZIOM_WU  60
+
+TEKST kontur nerki:
+Jaki jest kontur nerki?
+
+TEKST wielkosc nerki:
+Jaka jest wielkosc nerki?
+
+TEKST gestosc tkanki nerki:
+Jaka jest gestosc tkanki nerki?
+
+TEKST liczba bialych cialek krwi:
+Jaka jest liczba bialych cialek krwi?
+
+
+REGULA 1
+JEZELI kontur nerki JEST gladki
+ORAZ wielkosc nerki JEST mala
+ORAZ gestosc tkanki nerki JEST zwiekszona
+TO diagnoza JEST niedokrwienie
+
+REGULA 2
+JEZELI kontur nerki JEST gladki
+ORAZ wielkosc nerki JEST mala
+ORAZ gestosc tkanki nerki JEST zmniejszona
+TO diagnoza JEST nowotwor_lagodny
+
+REGULA 3
+JEZELI kontur nerki JEST gladki
+ORAZ wielkosc nerki JEST mala
+ORAZ gestosc tkanki nerki JEST normalna
+TO diagnoza JEST  brak_danych
+
+REGULA 4
+JEZELI kontur nerki JEST regularny
+ORAZ wielkosc nerki JEST mala
+TO diagnoza JEST zator_zylny
+
+REGULA 5
+JEZELI kontur nerki JEST regularny
+ORAZ wielkosc nerki JEST duza
+TO diagnoza JEST kamien_nerkowy
+
+REGULA 6
+JEZELI kontur nerki JEST regularny
+ORAZ wielkosc nerki JEST normalna
+TO diagnoza JEST nowotwor_lagodny
+
+REGULA 7
+JEZELI kontur nerki JEST gladki
+ORAZ wielkosc nerki JEST duza
+TO diagnoza JEST zator_tetniczy
+
+REGULA 8
+JEZELI kontur nerki JEST gladki
+ORAZ wielkosc nerki JEST normalna
+TO diagnoza JEST bez_zmian
+
+REGULA 9
+JEZELI kontur nerki JEST nieregularny
+ORAZ gestosc tkanki nerki JEST zwiekszona
+TO diagnoza JEST bez_zmian
+
+REGULA 10
+JEZELI kontur nerki JEST nieregularny
+ORAZ gestosc tkanki nerki JEST zmniejszona
+TO diagnoza JEST nowotwor_zlosliwy
+
+REGULA 11
+JEZELI kontur nerki JEST nieregularny
+ORAZ gestosc tkanki nerki JEST normalna
+ORAZ liczba bialych cialek krwi JEST < 80
+TO diagnoza JEST infekcja
+
+REGULA 12
+JEZELI kontur nerki JEST nieregularny
+ORAZ gestosc tkanki nerki JEST normalna
+ORAZ liczba bialych cialek krwi JEST > 80
+TO diagnoza JEST nowotwor_zlosliwy

@@ -1,0 +1,13 @@
+<RCC>
+  <qresource prefix="icons">
+    <file>icons/ask_and_answer.png</file>
+    <file>icons/database_delete.png</file>
+    <file>icons/question.png</file>
+    <file>icons/database_green.png</file>
+    <file>icons/database_lightning.png</file>
+    <file>icons/file_manager.png</file>
+    <file>icons/database_go.png</file>
+    <file>icons/door_in.png</file>
+    <file>icons/database_add.png</file>
+  </qresource>
+</RCC>
