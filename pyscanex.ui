@@ -6,15 +6,15 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>771</width>
-    <height>627</height>
+    <width>763</width>
+    <height>545</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Scannex</string>
   </property>
   <property name="windowIcon">
-   <iconset resource="resources.qrc">
+   <iconset>
     <normaloff>:/icons/icons/question.png</normaloff>:/icons/icons/question.png</iconset>
   </property>
   <property name="dockNestingEnabled">
@@ -23,14 +23,14 @@
   <widget class="QWidget" name="centralwidget">
    <layout class="QVBoxLayout" name="verticalLayout">
     <item>
-     <widget class="QTabWidget" name="tabConsultation">
+     <widget class="QTabWidget" name="tabWidget">
       <property name="currentIndex">
-       <number>2</number>
+       <number>0</number>
       </property>
       <widget class="QWidget" name="tabFiles">
        <attribute name="icon">
         <iconset resource="resources.qrc">
-         <normaloff>:/icons/icons/file_manager.png</normaloff>:/icons/icons/file_manager.png</iconset>
+         <normaloff>:/icons/file_manager.png</normaloff>:/icons/file_manager.png</iconset>
        </attribute>
        <attribute name="title">
         <string>Knowledge Base Files</string>
@@ -85,10 +85,10 @@
         </item>
        </layout>
       </widget>
-      <widget class="QWidget" name="tab_2">
+      <widget class="QWidget" name="tabCompiled">
        <attribute name="icon">
         <iconset resource="resources.qrc">
-         <normaloff>:/icons/icons/database_green.png</normaloff>:/icons/icons/database_green.png</iconset>
+         <normaloff>:/icons/database_green.png</normaloff>:/icons/database_green.png</iconset>
        </attribute>
        <attribute name="title">
         <string>Compiled Knowledge Base Files</string>
@@ -131,7 +131,7 @@
       <widget class="QWidget" name="tab">
        <attribute name="icon">
         <iconset resource="resources.qrc">
-         <normaloff>:/icons/icons/ask_and_answer.png</normaloff>:/icons/icons/ask_and_answer.png</iconset>
+         <normaloff>:/icons/ask_and_answer.png</normaloff>:/icons/ask_and_answer.png</iconset>
        </attribute>
        <attribute name="title">
         <string>Consultation</string>
@@ -294,7 +294,7 @@
                       <property name="minimumSize">
                        <size>
                         <width>0</width>
-                        <height>202</height>
+                        <height>150</height>
                        </size>
                       </property>
                       <property name="title">
@@ -314,7 +314,7 @@
                       <property name="minimumSize">
                        <size>
                         <width>0</width>
-                        <height>202</height>
+                        <height>150</height>
                        </size>
                       </property>
                       <property name="title">
@@ -337,7 +337,7 @@
                  <property name="minimumSize">
                   <size>
                    <width>0</width>
-                   <height>235</height>
+                   <height>150</height>
                   </size>
                  </property>
                  <property name="title">
@@ -406,7 +406,7 @@ p, li { white-space: pre-wrap; }
    <attribute name="toolBarBreak">
     <bool>false</bool>
    </attribute>
-   <addaction name="actionAddKnowledgeBase"/>
+   <addaction name="actionAdd"/>
    <addaction name="separator"/>
    <addaction name="actionDelete"/>
    <addaction name="separator"/>
@@ -416,13 +416,13 @@ p, li { white-space: pre-wrap; }
    <addaction name="separator"/>
    <addaction name="actionExit"/>
   </widget>
-  <action name="actionAddKnowledgeBase">
+  <action name="actionAdd">
    <property name="enabled">
     <bool>true</bool>
    </property>
    <property name="icon">
     <iconset resource="resources.qrc">
-     <normaloff>:/icons/icons/database_add.png</normaloff>:/icons/icons/database_add.png</iconset>
+     <normaloff>:/icons/database_add.png</normaloff>:/icons/database_add.png</iconset>
    </property>
    <property name="text">
     <string>Add</string>
@@ -434,7 +434,7 @@ p, li { white-space: pre-wrap; }
   <action name="actionExit">
    <property name="icon">
     <iconset resource="resources.qrc">
-     <normaloff>:/icons/icons/door_in.png</normaloff>:/icons/icons/door_in.png</iconset>
+     <normaloff>:/icons/door_in.png</normaloff>:/icons/door_in.png</iconset>
    </property>
    <property name="text">
     <string>Exit</string>
@@ -446,7 +446,7 @@ p, li { white-space: pre-wrap; }
   <action name="actionCompile">
    <property name="icon">
     <iconset resource="resources.qrc">
-     <normaloff>:/icons/icons/database_lightning.png</normaloff>:/icons/icons/database_lightning.png</iconset>
+     <normaloff>:/icons/database_lightning.png</normaloff>:/icons/database_lightning.png</iconset>
    </property>
    <property name="text">
     <string>Compile</string>
@@ -458,7 +458,7 @@ p, li { white-space: pre-wrap; }
   <action name="actionRun">
    <property name="icon">
     <iconset resource="resources.qrc">
-     <normaloff>:/icons/icons/database_go.png</normaloff>:/icons/icons/database_go.png</iconset>
+     <normaloff>:/icons/database_go.png</normaloff>:/icons/database_go.png</iconset>
    </property>
    <property name="text">
     <string>Run</string>
@@ -470,7 +470,7 @@ p, li { white-space: pre-wrap; }
   <action name="actionDelete">
    <property name="icon">
     <iconset resource="resources.qrc">
-     <normaloff>:/icons/icons/database_delete.png</normaloff>:/icons/icons/database_delete.png</iconset>
+     <normaloff>:/icons/database_delete.png</normaloff>:/icons/database_delete.png</iconset>
    </property>
    <property name="text">
     <string>Delete</string>

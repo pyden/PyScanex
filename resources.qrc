@@ -1,5 +1,5 @@
 <RCC>
-  <qresource prefix="icons">
+  <qresource>
     <file>icons/ask_and_answer.png</file>
     <file>icons/database_delete.png</file>
     <file>icons/question.png</file>
