@@ -85,6 +85,8 @@ class KBParser():
 
             self.parseRule(entity)
 
+        elif entity.startswith(KEYWORDS['goal']):
+            self.knowledgeBase['goal'] = entity.strip()[entity.index(' ') + 1:]
 
     def parseQuestion(self, qEntity):
         matches = self.questionPattern.match(qEntity)
