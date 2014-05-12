@@ -48,9 +48,3 @@ def actionCompileTriggered():
 QtCore.QObject.connect(ui.actionAdd, QtCore.SIGNAL(_fromUtf8("triggered()")), actionAddTriggered)
 QtCore.QObject.connect(ui.actionCompile, QtCore.SIGNAL(_fromUtf8("triggered()")), actionCompileTriggered)
 QtCore.QObject.connect(ui.tabWidget, QtCore.SIGNAL(_fromUtf8("currentChanged(int)")), currentTabChanged)
-
-
-
-if __name__ == '__main__':
-    MainWindow.show()
-    sys.exit(app.exec_())
