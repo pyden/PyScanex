@@ -1,5 +1,9 @@
 <RCC>
   <qresource>
+    <file>icons/arrow_right.png</file>
+    <file>icons/page_white_magnify.png</file>
+    <file>icons/stop.png</file>
+    <file>icons/arrow_refresh_small.png</file>
     <file>icons/ask_and_answer.png</file>
     <file>icons/database_delete.png</file>
     <file>icons/question.png</file>

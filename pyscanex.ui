@@ -7,11 +7,17 @@
     <x>0</x>
     <y>0</y>
     <width>763</width>
-    <height>545</height>
+    <height>566</height>
    </rect>
   </property>
+  <property name="font">
+   <font>
+    <family>Ubuntu</family>
+    <pointsize>10</pointsize>
+   </font>
+  </property>
   <property name="windowTitle">
-   <string>Scannex</string>
+   <string>PyScanex</string>
   </property>
   <property name="windowIcon">
    <iconset>
@@ -27,8 +33,78 @@
       <property name="enabled">
        <bool>true</bool>
       </property>
+      <property name="palette">
+       <palette>
+        <active>
+         <colorrole role="Base">
+          <brush brushstyle="SolidPattern">
+           <color alpha="255">
+            <red>255</red>
+            <green>255</green>
+            <blue>255</blue>
+           </color>
+          </brush>
+         </colorrole>
+         <colorrole role="Window">
+          <brush brushstyle="SolidPattern">
+           <color alpha="255">
+            <red>201</red>
+            <green>206</green>
+            <blue>193</blue>
+           </color>
+          </brush>
+         </colorrole>
+        </active>
+        <inactive>
+         <colorrole role="Base">
+          <brush brushstyle="SolidPattern">
+           <color alpha="255">
+            <red>255</red>
+            <green>255</green>
+            <blue>255</blue>
+           </color>
+          </brush>
+         </colorrole>
+         <colorrole role="Window">
+          <brush brushstyle="SolidPattern">
+           <color alpha="255">
+            <red>201</red>
+            <green>206</green>
+            <blue>193</blue>
+           </color>
+          </brush>
+         </colorrole>
+        </inactive>
+        <disabled>
+         <colorrole role="Base">
+          <brush brushstyle="SolidPattern">
+           <color alpha="255">
+            <red>201</red>
+            <green>206</green>
+            <blue>193</blue>
+           </color>
+          </brush>
+         </colorrole>
+         <colorrole role="Window">
+          <brush brushstyle="SolidPattern">
+           <color alpha="255">
+            <red>201</red>
+            <green>206</green>
+            <blue>193</blue>
+           </color>
+          </brush>
+         </colorrole>
+        </disabled>
+       </palette>
+      </property>
+      <property name="font">
+       <font>
+        <family>Ubuntu</family>
+        <pointsize>10</pointsize>
+       </font>
+      </property>
       <property name="currentIndex">
-       <number>0</number>
+       <number>1</number>
       </property>
       <widget class="QWidget" name="tabFiles">
        <attribute name="icon">
@@ -36,7 +112,7 @@
          <normaloff>:/icons/file_manager.png</normaloff>:/icons/file_manager.png</iconset>
        </attribute>
        <attribute name="title">
-        <string>Knowledge Base Files</string>
+        <string>Bazy wiedzy</string>
        </attribute>
        <layout class="QVBoxLayout" name="verticalLayout_2">
         <item>
@@ -60,7 +136,7 @@
             </property>
             <column>
              <property name="text">
-              <string>Path</string>
+              <string>Plik</string>
              </property>
              <property name="textAlignment">
               <set>AlignLeft|AlignVCenter</set>
@@ -68,12 +144,12 @@
             </column>
             <column>
              <property name="text">
-              <string>Compiled</string>
+              <string>Skompilowano?</string>
              </property>
             </column>
             <column>
              <property name="text">
-              <string>Size</string>
+              <string>Rozmiar, bajt</string>
              </property>
              <property name="textAlignment">
               <set>AlignLeft|AlignVCenter</set>
@@ -81,7 +157,7 @@
             </column>
             <column>
              <property name="text">
-              <string>Added</string>
+              <string>Dodano</string>
              </property>
              <property name="textAlignment">
               <set>AlignLeft|AlignVCenter</set>
@@ -94,12 +170,76 @@
        </layout>
       </widget>
       <widget class="QWidget" name="tabConsultation">
+       <property name="palette">
+        <palette>
+         <active>
+          <colorrole role="Base">
+           <brush brushstyle="SolidPattern">
+            <color alpha="255">
+             <red>255</red>
+             <green>255</green>
+             <blue>255</blue>
+            </color>
+           </brush>
+          </colorrole>
+          <colorrole role="Window">
+           <brush brushstyle="SolidPattern">
+            <color alpha="255">
+             <red>203</red>
+             <green>212</green>
+             <blue>195</blue>
+            </color>
+           </brush>
+          </colorrole>
+         </active>
+         <inactive>
+          <colorrole role="Base">
+           <brush brushstyle="SolidPattern">
+            <color alpha="255">
+             <red>255</red>
+             <green>255</green>
+             <blue>255</blue>
+            </color>
+           </brush>
+          </colorrole>
+          <colorrole role="Window">
+           <brush brushstyle="SolidPattern">
+            <color alpha="255">
+             <red>203</red>
+             <green>212</green>
+             <blue>195</blue>
+            </color>
+           </brush>
+          </colorrole>
+         </inactive>
+         <disabled>
+          <colorrole role="Base">
+           <brush brushstyle="SolidPattern">
+            <color alpha="255">
+             <red>203</red>
+             <green>212</green>
+             <blue>195</blue>
+            </color>
+           </brush>
+          </colorrole>
+          <colorrole role="Window">
+           <brush brushstyle="SolidPattern">
+            <color alpha="255">
+             <red>203</red>
+             <green>212</green>
+             <blue>195</blue>
+            </color>
+           </brush>
+          </colorrole>
+         </disabled>
+        </palette>
+       </property>
        <attribute name="icon">
         <iconset resource="resources.qrc">
          <normaloff>:/icons/ask_and_answer.png</normaloff>:/icons/ask_and_answer.png</iconset>
        </attribute>
        <attribute name="title">
-        <string>Consultation</string>
+        <string>Konsultacja</string>
        </attribute>
        <layout class="QVBoxLayout" name="verticalLayout_4">
         <item>
@@ -107,21 +247,36 @@
           <item row="0" column="1">
            <widget class="QPushButton" name="pushButtonReset">
             <property name="text">
-             <string>Reset</string>
+             <string>Odświeżenie</string>
+            </property>
+            <property name="icon">
+             <iconset resource="resources.qrc">
+              <normaloff>:/icons/arrow_refresh_small.png</normaloff>:/icons/arrow_refresh_small.png</iconset>
             </property>
            </widget>
           </item>
           <item row="0" column="0">
            <widget class="QPushButton" name="pushButtonDisplay">
             <property name="text">
-             <string>Display</string>
+             <string>Zobacz bazę wiedzy</string>
+            </property>
+            <property name="icon">
+             <iconset resource="resources.qrc">
+              <normaloff>:/icons/page_white_magnify.png</normaloff>:/icons/page_white_magnify.png</iconset>
+            </property>
+            <property name="flat">
+             <bool>false</bool>
             </property>
            </widget>
           </item>
           <item row="0" column="2">
            <widget class="QPushButton" name="pushButtonStop">
             <property name="text">
-             <string>Stop</string>
+             <string>Ukończ konsultację</string>
+            </property>
+            <property name="icon">
+             <iconset resource="resources.qrc">
+              <normaloff>:/icons/stop.png</normaloff>:/icons/stop.png</iconset>
             </property>
            </widget>
           </item>
@@ -161,25 +316,16 @@
                   </size>
                  </property>
                  <property name="title">
-                  <string>Quesiton:</string>
+                  <string>Pytanie:</string>
                  </property>
-                 <widget class="QLineEdit" name="lineEditQuestion">
+                 <widget class="QComboBox" name="comboBoxquestion">
                   <property name="geometry">
                    <rect>
                     <x>10</x>
                     <y>20</y>
                     <width>331</width>
-                    <height>20</height>
+                    <height>22</height>
                    </rect>
-                  </property>
-                  <property name="minimumSize">
-                   <size>
-                    <width>331</width>
-                    <height>20</height>
-                   </size>
-                  </property>
-                  <property name="readOnly">
-                   <bool>true</bool>
                   </property>
                  </widget>
                 </widget>
@@ -193,7 +339,7 @@
                   </size>
                  </property>
                  <property name="title">
-                  <string>Answer:</string>
+                  <string>Odpowiedź:</string>
                  </property>
                  <widget class="QComboBox" name="comboBoxAnswers">
                   <property name="geometry">
@@ -208,40 +354,24 @@
                  <widget class="QPushButton" name="pushButtonNext">
                   <property name="geometry">
                    <rect>
-                    <x>180</x>
+                    <x>250</x>
                     <y>50</y>
-                    <width>161</width>
+                    <width>91</width>
                     <height>23</height>
                    </rect>
                   </property>
+                  <property name="layoutDirection">
+                   <enum>Qt::LeftToRight</enum>
+                  </property>
                   <property name="text">
-                   <string>Next</string>
+                   <string>Dalej</string>
                   </property>
-                 </widget>
-                </widget>
-               </item>
-               <item row="2" column="0">
-                <widget class="QGroupBox" name="groupBoxDecision">
-                 <property name="minimumSize">
-                  <size>
-                   <width>350</width>
-                   <height>50</height>
-                  </size>
-                 </property>
-                 <property name="title">
-                  <string>Decision</string>
-                 </property>
-                 <widget class="QLineEdit" name="lineEditDecision">
-                  <property name="geometry">
-                   <rect>
-                    <x>10</x>
-                    <y>20</y>
-                    <width>331</width>
-                    <height>20</height>
-                   </rect>
+                  <property name="icon">
+                   <iconset resource="resources.qrc">
+                    <normaloff>:/icons/arrow_right.png</normaloff>:/icons/arrow_right.png</iconset>
                   </property>
-                  <property name="readOnly">
-                   <bool>true</bool>
+                  <property name="autoRepeat">
+                   <bool>false</bool>
                   </property>
                  </widget>
                 </widget>
@@ -249,7 +379,7 @@
                <item row="0" column="1" rowspan="4">
                 <widget class="QGroupBox" name="groupBox_4">
                  <property name="title">
-                  <string>Progress Information:</string>
+                  <string>Informacja:</string>
                  </property>
                  <layout class="QVBoxLayout" name="verticalLayout_6">
                   <item>
@@ -263,7 +393,7 @@
                        </size>
                       </property>
                       <property name="title">
-                       <string>Possible decisions:</string>
+                       <string>Możliwe decyzje:</string>
                       </property>
                       <layout class="QVBoxLayout" name="verticalLayout_7">
                        <item>
@@ -281,7 +411,7 @@
                        </size>
                       </property>
                       <property name="title">
-                       <string>Facts:</string>
+                       <string>Fakty:</string>
                       </property>
                       <layout class="QHBoxLayout" name="horizontalLayout_3">
                        <item>
@@ -295,33 +425,27 @@
                  </layout>
                 </widget>
                </item>
-               <item row="3" column="0">
-                <widget class="QGroupBox" name="groupBox_7">
+               <item row="2" column="0" rowspan="2">
+                <widget class="QGroupBox" name="groupBoxDecision">
                  <property name="minimumSize">
                   <size>
-                   <width>0</width>
-                   <height>150</height>
+                   <width>350</width>
+                   <height>50</height>
                   </size>
                  </property>
                  <property name="title">
-                  <string>Rule:</string>
+                  <string>Decyzja:</string>
                  </property>
-                 <layout class="QVBoxLayout" name="verticalLayout_8">
-                  <item>
-                   <widget class="QTextEdit" name="textEditRule">
-                    <property name="readOnly">
-                     <bool>true</bool>
-                    </property>
-                    <property name="html">
-                     <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
-&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
-p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-                    </property>
-                   </widget>
-                  </item>
-                 </layout>
+                 <widget class="QPlainTextEdit" name="plainDecisions">
+                  <property name="geometry">
+                   <rect>
+                    <x>10</x>
+                    <y>20</y>
+                    <width>331</width>
+                    <height>192</height>
+                   </rect>
+                  </property>
+                 </widget>
                 </widget>
                </item>
               </layout>
@@ -337,13 +461,17 @@ p, li { white-space: pre-wrap; }
     </item>
    </layout>
   </widget>
-  <widget class="QStatusBar" name="statusbar"/>
   <widget class="QToolBar" name="toolBar">
    <property name="sizeIncrement">
     <size>
      <width>0</width>
      <height>0</height>
     </size>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>10</pointsize>
+    </font>
    </property>
    <property name="windowTitle">
     <string>toolBar</string>
@@ -388,7 +516,7 @@ p, li { white-space: pre-wrap; }
      <normaloff>:/icons/database_add.png</normaloff>:/icons/database_add.png</iconset>
    </property>
    <property name="text">
-    <string>Add</string>
+    <string>Dodaj plik</string>
    </property>
    <property name="toolTip">
     <string>Add new knowledge base to the system</string>
@@ -400,7 +528,7 @@ p, li { white-space: pre-wrap; }
      <normaloff>:/icons/door_in.png</normaloff>:/icons/door_in.png</iconset>
    </property>
    <property name="text">
-    <string>Exit</string>
+    <string>Powrót</string>
    </property>
    <property name="toolTip">
     <string>Exit from application</string>
@@ -412,7 +540,7 @@ p, li { white-space: pre-wrap; }
      <normaloff>:/icons/database_lightning.png</normaloff>:/icons/database_lightning.png</iconset>
    </property>
    <property name="text">
-    <string>Compile</string>
+    <string>Skompiluj bazę</string>
    </property>
    <property name="toolTip">
     <string>Compile selected knowledge base</string>
@@ -424,7 +552,7 @@ p, li { white-space: pre-wrap; }
      <normaloff>:/icons/database_go.png</normaloff>:/icons/database_go.png</iconset>
    </property>
    <property name="text">
-    <string>Run</string>
+    <string>Zacznij konsultacę</string>
    </property>
    <property name="toolTip">
     <string>Run selected knowledge base</string>
@@ -436,7 +564,7 @@ p, li { white-space: pre-wrap; }
      <normaloff>:/icons/database_delete.png</normaloff>:/icons/database_delete.png</iconset>
    </property>
    <property name="text">
-    <string>Delete</string>
+    <string>Usuń plik</string>
    </property>
    <property name="toolTip">
     <string>Delete knowledge base</string>

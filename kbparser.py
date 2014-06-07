@@ -169,21 +169,33 @@ class KBParser():
 
             if lines[currLine].startswith(KEYWORDS['then']):
                 break
+
             match = self.ruleParameterPattern.match(lines[currLine])
             if match is None:
                 raise KBRuleParseException("Invalid syntax", rule_line=currLine + 1, rule_lines=len(lines))
             parameter = match.groupdict()
             self.knowledgeBase['parameters'][parameter['name']]['values'].add(parameter['value'])
+            self.knowledgeBase['rules'][ruleNumber]['parameters'][parameter['name']] = parameter['value']
             self.addIndex(parameter, ruleNumber)
+
+
+        match = self.ruleDecisionPattern.match(lines[currLine])
+        if match is None:
+            raise KBRuleParseException("Invalid syntax", rule_line=currLine + 1, rule_lines=len(lines))
+
+        decision = match.groupdict()
+        self.knowledgeBase['rules'][ruleNumber]['decisions'][decision['name']] = decision['value']
+
+        currLine += 1
 
         while True:
             if currLine == len(lines):
                 break
-
-            match = self.ruleDecisionPattern.match(lines[currLine])
+            match = self.ruleParameterPattern.match(lines[currLine])
             if match is None:
                 raise KBRuleParseException("Invalid syntax", rule_line=currLine + 1, rule_lines=len(lines))
 
             decision = match.groupdict()
             self.knowledgeBase['rules'][ruleNumber]['decisions'][decision['name']] = decision['value']
+
             currLine += 1
