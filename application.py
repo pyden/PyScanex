@@ -3,6 +3,7 @@
 from PyQt4 import QtGui, QtCore
 from pyscanex import Ui_MainWindow
 from pyscanex import _fromUtf8
+from settings import OUT_FILE
 import sys
 import os
 import datetime
@@ -15,24 +16,58 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
     def __init__(self, parent=None):
         super(MainWindow, self).__init__(parent)
         self.setupUi(self)
+        self.loadData()
+        self.tabConsultation.setEnabled(False)
+
+        # change standard widths of the columns
+        sizes = [0.58, 0.15, 0.13, 0.22]
+        for i in xrange(4):
+            self.tableFiles.setColumnWidth(i, self.tableFiles.width() * sizes[i])
+
+    def loadData(self):
+        rows = 0
+        try:
+            with open(OUT_FILE, 'r') as f:
+                for line in f:
+                    data = line.strip().split(";")
+                    self.tableFiles.setRowCount(rows + 1)
+                    for i in xrange(4):
+                        self.tableFiles.setItem(rows, i, QtGui.QTableWidgetItem(data[i]))
+                    rows += 1
+        except IOError:
+            pass
+
+    def closeEvent(self, event):
+        rows = ui.tableFiles.rowCount()
+
+        if rows == 0:
+            return
+        try:
+            with open(OUT_FILE, 'w') as f:
+                for i in xrange(rows):
+                    line = ''
+
+                    for j in xrange(4):
+                        if ui.tableFiles.item(i, j) is not None:
+                            line += str(ui.tableFiles.item(i, j).text())
+                        line += ";"
+
+                    f.write(line[:-1] + '\n')
+        except IOError:
+            pass
+
+
 
 app = QtGui.QApplication(sys.argv)
 ui = MainWindow()
 
 
-sizes = [0.62, 0.15, 0.2,]
-for i in xrange(3):
-    ui.tableFiles.setColumnWidth(i, ui.tableFiles.width() * sizes[i])
-
-
 ui.kbParser = kbparser.KBParser()
 ui.parent = MainWindow
 
-ui.tabConsultation.setEnabled(False)
-
 def actionAddTriggered():
     global ui
-    fileName = QtGui.QFileDialog.getOpenFileName(ui, 'Open file', '',
+    fileName = QtGui.QFileDialog.getOpenFileName(ui, u'Otwórz plik', '',
                                                  'TXT (*.txt);;BW (*.bw);;KB (*.kb)')
 
     if len(fileName.split('.')) == 1:
@@ -88,11 +123,14 @@ def compilationDoneTriggered():
     global ui
     ui.progressDialog.cancel()
     ui.compileProcessThread = None
-    row = ui.tableFiles.rowCount() - 1
+    row = ui.tableFiles.currentRow()
     ui.tableFiles.setItem(row, 1, QtGui.QTableWidgetItem('tak'))
 
 def actionRunTriggered():
     global ui
+
+    resetConsultationWidgets()
+
     row = ui.tableFiles.currentRow()
 
     if row == -1:
@@ -101,6 +139,9 @@ def actionRunTriggered():
     item = ui.tableFiles.item(row, 1)
 
     if item is None:
+        return
+
+    if str(item.text()) != 'tak':
         return
 
     ui.tabWidget.setCurrentIndex(1)
@@ -121,6 +162,7 @@ def actionRunTriggered():
     ui.comboBoxAnswers.addItems(list(ui.kb['parameters'][parameter]['values']))
 
 def resetConsultationWidgets():
+    ui.groupBox.setTitle('Cel konsultacji: ')
     ui.listFacts.setEnabled(True)
     ui.comboBoxquestion.clear()
     ui.plainDecisions.setPlainText('')
@@ -261,6 +303,31 @@ def listFactsItemDoubleClicked(item):
     ui.plainDecisions.setPlainText('')
 
 
+def listDecisionsItemDoubleClicked(item):
+    global ui
+
+    rule = str(item.text())
+    rule = ui.kb['rules'][rule]
+    i = 0
+    text = ''
+    for key in sorted(rule['parameters'].keys()):
+        if i == 0:
+            i += 1
+            text = "JEZELI " + key + " JEST " + rule['parameters'][key] + "\n"
+        else:
+            text += "ORAZ " + key + " JEST " + rule['parameters'][key] + "\n"
+
+    i = 0
+    for key in sorted(rule['decisions'].keys()):
+        if i == 0:
+            text += "TO " + key + " JEST " + rule['decisions'][key] + "\n"
+            i += 1
+        else:
+             text += "ORAZ " + key + " JEST " + rule['decisions'][key] + "\n"
+
+    msgBox = QtGui.QMessageBox()
+    msgBox.setText(text)
+    msgBox.exec_()
 
 QtCore.QObject.connect(ui.actionAdd, QtCore.SIGNAL(_fromUtf8("triggered()")), actionAddTriggered)
 QtCore.QObject.connect(ui.actionDelete, QtCore.SIGNAL(_fromUtf8("triggered()")), actionDeleteTriggered)
@@ -272,7 +339,7 @@ QtCore.QObject.connect(ui.pushButtonReset, QtCore.SIGNAL('clicked()'), pushButto
 QtCore.QObject.connect(ui.pushButtonStop, QtCore.SIGNAL('clicked()'), pushButtonStopClicked)
 QtCore.QObject.connect(ui.comboBoxquestion, QtCore.SIGNAL('activated(QString)'), comboBoxQuestionItemChanged)
 QtCore.QObject.connect(ui.listFacts, QtCore.SIGNAL('itemDoubleClicked(QListWidgetItem*)'), listFactsItemDoubleClicked)
-
+QtCore.QObject.connect(ui.listDecisions, QtCore.SIGNAL('itemDoubleClicked(QListWidgetItem*)'), listDecisionsItemDoubleClicked)
 
 def displayKbToConsole():
     global ui

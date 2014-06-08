@@ -12,3 +12,5 @@ english = {
 }
 
 KEYWORDS = english
+
+OUT_FILE = "knowledge_bases.txt"
