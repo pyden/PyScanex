@@ -8,7 +8,7 @@ import sys
 import os
 import datetime
 import kbparser
-
+import pickle
 
 class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
     signalCompilationDone = QtCore.pyqtSignal()
@@ -57,7 +57,6 @@ class MainWindow(QtGui.QMainWindow, Ui_MainWindow):
             pass
 
 
-
 app = QtGui.QApplication(sys.argv)
 ui = MainWindow()
 
@@ -67,28 +66,41 @@ ui.parent = MainWindow
 
 def actionAddTriggered():
     global ui
-    fileName = QtGui.QFileDialog.getOpenFileName(ui, u'Otwórz plik', '',
-                                                 'TXT (*.txt);;BW (*.bw);;KB (*.kb)')
-
+    fileName = QtGui.QFileDialog.getOpenFileName(
+		ui, u'Otwórz plik', '', 'TXT (*.txt);;BW (*.bw);;KB (*.kb)'
+	)
     if len(fileName.split('.')) == 1:
         return
 
     path = os.path.abspath(fileName)
     rows = ui.tableFiles.rowCount()
     ui.tableFiles.setRowCount(rows + 1)
-
     ui.tableFiles.setItem(rows, 0, QtGui.QTableWidgetItem(path))
-    ui.tableFiles.setItem(rows, 2, QtGui.QTableWidgetItem("%d bajt" % os.path.getsize(path)))
+    ui.tableFiles.setItem(rows, 2, QtGui.QTableWidgetItem(
+		"%d bajt" % os.path.getsize(path))
+	)
     dateAdded = str(datetime.datetime.now()).split('.')[0]
     ui.tableFiles.setItem(rows, 3, QtGui.QTableWidgetItem(dateAdded))
 
 
 def actionDeleteTriggered():
+    global ui
     row = ui.tableFiles.currentRow()
     if row == -1:
+        QtGui.QMessageBox.critical(ui, u"Błąd", u"Nic nie wybrano", "")
         return
 
+    path = str(ui.tableFiles.item(row, 0).text())
     ui.tableFiles.removeRow(row)
+	
+    path = path.split(os.sep)
+    fileName = os.path.join(
+        os.path.dirname(os.path.realpath(__file__)),
+        'compiled', path.pop() + '.kbw'
+    )
+    if os.path.exists(fileName):
+        os.remove(fileName)
+		
 
 def actionCompileTriggered():
     global ui
@@ -110,8 +122,9 @@ def actionCompileTriggered():
             self.sleep(1)
             ui.signalCompilationDone.emit()
 
-
-    ui.progressDialog = QtGui.QProgressDialog('Kompilacja ...', u'Powrót', 0, 1)
+    ui.progressDialog = QtGui.QProgressDialog(
+        'Kompilacja ...', u'Powrót', 0, 1
+    )
     ui.progressDialog.setRange(0, 0)
     ui.progressDialog.setFixedSize(400, 100)
     ui.progressDialog.show()
@@ -125,25 +138,40 @@ def compilationDoneTriggered():
     ui.compileProcessThread = None
     row = ui.tableFiles.currentRow()
     ui.tableFiles.setItem(row, 1, QtGui.QTableWidgetItem('tak'))
+    row = ui.tableFiles.currentRow()
+    path = str(ui.tableFiles.item(row, 0).text())
+    path = path.split(os.sep)
+    fileName = os.path.join(
+        os.path.dirname(os.path.realpath(__file__)),
+        'compiled', path.pop() + '.kbw'
+    )
+    with open(fileName, 'wb') as fptr:
+        pickle.dump(ui.kb, fptr)
+    ui.kb = None
 
 def actionRunTriggered():
     global ui
-
     resetConsultationWidgets()
-
     row = ui.tableFiles.currentRow()
-
     if row == -1:
         return
 
     item = ui.tableFiles.item(row, 1)
-
     if item is None:
         return
 
     if str(item.text()) != 'tak':
         return
 
+    path = str(ui.tableFiles.item(row, 0).text())
+    path = path.split(os.sep)
+    fileName = os.path.join(
+        os.path.dirname(os.path.realpath(__file__)),
+        'compiled', path.pop() + '.kbw'
+    )
+    with open(fileName, 'rb') as fptr:
+        ui.kb = pickle.load(fptr)
+	
     ui.tabWidget.setCurrentIndex(1)
     ui.tabWidget.setTabEnabled(1, True)
 
@@ -159,7 +187,9 @@ def actionRunTriggered():
     parameter = ui.comboBoxquestion.params[question]
     ui.comboBoxAnswers.clear()
     ui.comboBoxAnswers.addItem('<niewiadomo>')
-    ui.comboBoxAnswers.addItems(list(ui.kb['parameters'][parameter]['values']))
+    ui.comboBoxAnswers.addItems(
+        list(sorted(ui.kb['parameters'][parameter]['values']))
+    )
 
 def resetConsultationWidgets():
     ui.groupBox.setTitle('Cel konsultacji: ')
@@ -184,7 +214,7 @@ def resetConsultation():
     parameter = ui.comboBoxquestion.params[question]
     ui.comboBoxAnswers.clear()
     ui.comboBoxAnswers.addItem('<niewiadomo>')
-    ui.comboBoxAnswers.addItems(list(ui.kb['parameters'][parameter]['values']))
+    ui.comboBoxAnswers.addItems(list(sorted(ui.kb['parameters'][parameter]['values'])))
 
 def pushButtonNextClicked():
     global ui
@@ -211,7 +241,7 @@ def pushButtonNextClicked():
 
     ui.comboBoxAnswers.clear()
     ui.comboBoxAnswers.addItem('<niewiadomo>')
-    ui.comboBoxAnswers.addItems(list(ui.kb['parameters'][parameter]['values']))
+    ui.comboBoxAnswers.addItems(list(sorted(ui.kb['parameters'][parameter]['values'])))
 
 
     if answer != '<niewiadomo>':
@@ -244,8 +274,6 @@ def pushButtonNextClicked():
         ui.plainDecisions.setPlainText(u'Nie ma decyzji dla potocznego zbioru reguł')
 
 
-
-
 def pushButtonResetClicked():
     resetConsultation()
 
@@ -265,7 +293,7 @@ def comboBoxQuestionItemChanged(item):
     parameter = ui.comboBoxquestion.params[q]
     ui.comboBoxAnswers.clear()
     ui.comboBoxAnswers.addItem('<niewiadomo>')
-    ui.comboBoxAnswers.addItems(list(ui.kb['parameters'][parameter]['values']))
+    ui.comboBoxAnswers.addItems(list(sorted(ui.kb['parameters'][parameter]['values'])))
 
 
 def listFactsItemDoubleClicked(item):
@@ -329,17 +357,31 @@ def listDecisionsItemDoubleClicked(item):
     msgBox.setText(text)
     msgBox.exec_()
 
-QtCore.QObject.connect(ui.actionAdd, QtCore.SIGNAL(_fromUtf8("triggered()")), actionAddTriggered)
-QtCore.QObject.connect(ui.actionDelete, QtCore.SIGNAL(_fromUtf8("triggered()")), actionDeleteTriggered)
-QtCore.QObject.connect(ui.actionCompile, QtCore.SIGNAL(_fromUtf8("triggered()")), actionCompileTriggered)
-QtCore.QObject.connect(ui.actionRun, QtCore.SIGNAL(_fromUtf8("triggered()")), actionRunTriggered)
-QtCore.QObject.connect(ui, QtCore.SIGNAL('signalCompilationDone()'), compilationDoneTriggered)
-QtCore.QObject.connect(ui.pushButtonNext, QtCore.SIGNAL('clicked()'), pushButtonNextClicked)
-QtCore.QObject.connect(ui.pushButtonReset, QtCore.SIGNAL('clicked()'), pushButtonResetClicked)
-QtCore.QObject.connect(ui.pushButtonStop, QtCore.SIGNAL('clicked()'), pushButtonStopClicked)
-QtCore.QObject.connect(ui.comboBoxquestion, QtCore.SIGNAL('activated(QString)'), comboBoxQuestionItemChanged)
-QtCore.QObject.connect(ui.listFacts, QtCore.SIGNAL('itemDoubleClicked(QListWidgetItem*)'), listFactsItemDoubleClicked)
-QtCore.QObject.connect(ui.listDecisions, QtCore.SIGNAL('itemDoubleClicked(QListWidgetItem*)'), listDecisionsItemDoubleClicked)
+QtCore.QObject.connect(
+    ui.actionAdd, QtCore.SIGNAL(_fromUtf8("triggered()")), actionAddTriggered)
+QtCore.QObject.connect(
+    ui.actionDelete, QtCore.SIGNAL(_fromUtf8("triggered()")), actionDeleteTriggered)
+QtCore.QObject.connect(
+    ui.actionCompile, QtCore.SIGNAL(_fromUtf8("triggered()")), actionCompileTriggered)
+QtCore.QObject.connect(
+    ui.actionRun, QtCore.SIGNAL(_fromUtf8("triggered()")), actionRunTriggered)
+QtCore.QObject.connect(
+    ui, QtCore.SIGNAL('signalCompilationDone()'), compilationDoneTriggered)
+QtCore.QObject.connect(
+    ui.pushButtonNext, QtCore.SIGNAL('clicked()'), pushButtonNextClicked)
+QtCore.QObject.connect(
+    ui.pushButtonReset, QtCore.SIGNAL('clicked()'), pushButtonResetClicked)
+QtCore.QObject.connect(
+    ui.pushButtonStop, QtCore.SIGNAL('clicked()'), pushButtonStopClicked)
+QtCore.QObject.connect(
+    ui.comboBoxquestion, QtCore.SIGNAL('activated(QString)'),
+    comboBoxQuestionItemChanged)
+QtCore.QObject.connect(
+    ui.listFacts, QtCore.SIGNAL('itemDoubleClicked(QListWidgetItem*)'),
+    listFactsItemDoubleClicked)
+QtCore.QObject.connect(
+    ui.listDecisions, QtCore.SIGNAL('itemDoubleClicked(QListWidgetItem*)'),
+    listDecisionsItemDoubleClicked)
 
 def displayKbToConsole():
     global ui

@@ -2,8 +2,8 @@
 
 # Form implementation generated from reading ui file 'pyscanex.ui'
 #
-# Created: Sun Jun 08 16:31:17 2014
-#      by: PyQt4 UI code generator 4.10.4
+# Created: Sat Nov 22 19:55:08 2014
+#      by: PyQt4 UI code generator 4.11.3
 #
 # WARNING! All changes made in this file will be lost!
 
@@ -26,7 +26,7 @@ except AttributeError:
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName(_fromUtf8("MainWindow"))
-        MainWindow.resize(862, 566)
+        MainWindow.resize(815, 530)
         font = QtGui.QFont()
         font.setFamily(_fromUtf8("Ubuntu"))
         font.setPointSize(10)
@@ -253,7 +253,7 @@ class Ui_MainWindow(object):
         self.toolBar.addAction(self.actionExit)
 
         self.retranslateUi(MainWindow)
-        self.tabWidget.setCurrentIndex(1)
+        self.tabWidget.setCurrentIndex(0)
         QtCore.QObject.connect(self.actionExit, QtCore.SIGNAL(_fromUtf8("triggered()")), MainWindow.close)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
@@ -287,7 +287,7 @@ class Ui_MainWindow(object):
         self.actionExit.setToolTip(_translate("MainWindow", "Exit from application", None))
         self.actionCompile.setText(_translate("MainWindow", "Skompiluj bazę", None))
         self.actionCompile.setToolTip(_translate("MainWindow", "Compile selected knowledge base", None))
-        self.actionRun.setText(_translate("MainWindow", "Zacznij konsultacę", None))
+        self.actionRun.setText(_translate("MainWindow", "Zacznij konsultację ", None))
         self.actionRun.setToolTip(_translate("MainWindow", "Run selected knowledge base", None))
         self.actionDelete.setText(_translate("MainWindow", "Usuń plik", None))
         self.actionDelete.setToolTip(_translate("MainWindow", "Delete knowledge base", None))

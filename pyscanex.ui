@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>862</width>
-    <height>566</height>
+    <width>815</width>
+    <height>530</height>
    </rect>
   </property>
   <property name="font">
@@ -104,7 +104,7 @@
        </font>
       </property>
       <property name="currentIndex">
-       <number>1</number>
+       <number>0</number>
       </property>
       <widget class="QWidget" name="tabFiles">
        <attribute name="icon">
@@ -538,7 +538,7 @@
      <normaloff>:/icons/database_go.png</normaloff>:/icons/database_go.png</iconset>
    </property>
    <property name="text">
-    <string>Zacznij konsultacę</string>
+    <string>Zacznij konsultację </string>
    </property>
    <property name="toolTip">
     <string>Run selected knowledge base</string>

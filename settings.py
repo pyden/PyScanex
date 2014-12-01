@@ -1,6 +1,6 @@
 # coding=utf-8
 
-english = {
+polish = {
     "comment": "!",
     "goal": "CEL_KONSULTACJI",
     "question": "TEKST",
@@ -11,6 +11,6 @@ english = {
     "then": "TO"
 }
 
-KEYWORDS = english
+KEYWORDS = polish
 
 OUT_FILE = "knowledge_bases.txt"

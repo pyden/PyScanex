@@ -10,11 +10,23 @@ import copy
 
 class KBParser():
     def __init__(self):
-        self.questionPattern = re.compile(REGEXP_QUESTION_PATTERN, re.VERBOSE)
-        self.ruleNumberPattern = re.compile(REGEXP_RULE_NUMBER_PATTERN, re.VERBOSE)
-        self.ruleStartPattern = re.compile(REGEXP_RULE_START_PATTERN, re.VERBOSE)
-        self.ruleParameterPattern = re.compile(REGEXP_RULE_PARAMETER_PATTERN, re.VERBOSE)
-        self.ruleDecisionPattern = re.compile(REGEXP_RULE_DECISION_PATTERN, re.VERBOSE)
+
+        self.questionPattern = re.compile(
+            REGEXP_QUESTION_PATTERN, re.VERBOSE
+        )
+        self.ruleNumberPattern = re.compile(
+            REGEXP_RULE_NUMBER_PATTERN, re.VERBOSE
+        )
+        self.ruleStartPattern = re.compile(
+            REGEXP_RULE_START_PATTERN, re.VERBOSE
+        )
+        self.ruleParameterPattern = re.compile(
+            REGEXP_RULE_PARAMETER_PATTERN, re.VERBOSE
+        )
+        self.ruleDecisionPattern = re.compile(
+            REGEXP_RULE_DECISION_PATTERN, re.VERBOSE
+        )
+
         self.knowledgeBase = None
 
 
@@ -126,7 +138,11 @@ class KBParser():
 
         self.knowledgeBase['indexer'][index].add(ruleNumber)
 
-    def parseRule(self, ruleEntity):
+    def parseRule(self, ruleEntity=None):
+
+        if ruleEntity is None:
+            raise KBRuleParseException('Empty rule', rule_line=1, rule_lines=1)
+
         currLine = 0
 
         lines = ruleEntity.rstrip('\n').split('\n')
@@ -137,6 +153,9 @@ class KBParser():
             raise KBRuleParseException('Rule number is not defined', rule_line=1, rule_lines=len(lines))
 
         ruleNumber = str(match.group(0))
+
+        if ruleNumber in self.knowledgeBase['rules']:
+            raise KBRuleParseException('Rule number already used', rule_line=1, rule_lines=len(lines))
 
         self.knowledgeBase['rules'][ruleNumber] = {
             'parameters': dict(),

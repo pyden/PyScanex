@@ -3,15 +3,9 @@
 import settings
 
 REGEXP_QUESTION_PATTERN = r"""
-        %s
-        \s
-        (?P<parameter>
-            .+
-        )
-        :\s
-        (?P<text>
-            .+\?
-        ) """ % (settings.KEYWORDS['question'])
+        %s \s
+        (?P<parameter>.+):\s
+        (?P<text>.+\?) """ % (settings.KEYWORDS['question'])
 
 REGEXP_RULE_NUMBER_PATTERN = r"""
     %s \s (?P<number> [\d]+\Z)
